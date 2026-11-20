@@ -27,7 +27,7 @@ React (frontend)  →  API REST (Node + Express)  →  MySQL (empresa_demo)
 - [x] Paso 1: Entorno y repositorio
 - [x] Paso 2: Backend conectado a MySQL
 - [x] Paso 3: CRUD de productos
-- [ ] Paso 4: Pruebas con Postman (colección exportada)
+- [x] Paso 4: Pruebas con Postman (colección exportada)
 - [ ] Paso 5: Clientes y pedidos con JOINs
 - [ ] Paso 6: Frontend en React
 - [ ] Paso 7: Documentación QA (historias de usuario, casos de prueba, backlog)
@@ -73,6 +73,12 @@ Ejemplo de body para `POST` y `PUT`:
 ```
 
 El `409` se devuelve al intentar eliminar un producto que forma parte de pedidos existentes (restricción de clave foránea).
+
+## 🧪 Pruebas
+
+- **Colección de Postman:** `postman/Ecommerce_API_Productos.postman_collection.json` (en Postman: *Import* y elegir el archivo).
+- **Casos de prueba documentados:** [`docs/casos_de_prueba.md`](docs/casos_de_prueba.md)
+- 10 casos (5 de flujo correcto y 5 de error) con 21 tests automáticos. Se ejecutan en orden con el Collection Runner.
 
 ## 🔒 Buenas prácticas aplicadas
 
