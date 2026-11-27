@@ -28,7 +28,7 @@ React (frontend)  →  API REST (Node + Express)  →  MySQL (empresa_demo)
 - [x] Paso 2: Backend conectado a MySQL
 - [x] Paso 3: CRUD de productos
 - [x] Paso 4: Pruebas con Postman (colección exportada)
-- [ ] Paso 5: Clientes y pedidos con JOINs
+- [x] Paso 5: Clientes y pedidos con JOINs
 - [ ] Paso 6: Frontend en React
 - [ ] Paso 7: Documentación QA (historias de usuario, casos de prueba, backlog)
 - [ ] Paso 8: Cierre y repositorio final
@@ -36,7 +36,7 @@ React (frontend)  →  API REST (Node + Express)  →  MySQL (empresa_demo)
 ## 🚀 Cómo ejecutarlo
 
 1. Crear la base de datos ejecutando el script `Base_Datos_Ecommerce_Practica_SQL.sql` del repositorio de SQL.
-2. Ejecutar `database/paso_03_auto_increment.sql` para que `productos` genere sus ids automáticamente.
+2. Ejecutar en orden los scripts de `database/` (`paso_03_auto_increment.sql` y `paso_05_clientes_auto_increment.sql`) para que `productos` y `clientes` generen sus ids automáticamente.
 3. Crear un usuario de MySQL para la app:
    ```sql
    CREATE USER 'ecommerce_user'@'localhost' IDENTIFIED BY 'tu_contraseña';
@@ -74,11 +74,29 @@ Ejemplo de body para `POST` y `PUT`:
 
 El `409` se devuelve al intentar eliminar un producto que forma parte de pedidos existentes (restricción de clave foránea).
 
+## 📡 Endpoints de clientes
+
+| Método | Ruta | Descripción | Respuestas |
+|---|---|---|---|
+| GET | `/clientes` | Lista todos los clientes | 200 |
+| GET | `/clientes/:id` | Obtiene un cliente | 200, 404 |
+| POST | `/clientes` | Crea un cliente (email único) | 201, 400, 409 |
+| PUT | `/clientes/:id` | Actualiza un cliente | 200, 400, 404, 409 |
+| DELETE | `/clientes/:id` | Elimina un cliente sin pedidos | 200, 404, 409 |
+
+## 📡 Endpoints de pedidos y reportes
+
+| Método | Ruta | Descripción | Respuestas |
+|---|---|---|---|
+| GET | `/pedidos` | Pedidos con cliente y total (`JOIN`). Filtro opcional `?estado=` | 200 |
+| GET | `/pedidos/:id` | Pedido con cliente, productos y total | 200, 404 |
+| GET | `/reportes/ranking-clientes` | Gasto por cliente con `RANK`, `DENSE_RANK` y `ROW_NUMBER` | 200 |
+
 ## 🧪 Pruebas
 
-- **Colección de Postman:** `postman/Ecommerce_API_Productos.postman_collection.json` (en Postman: *Import* y elegir el archivo).
+- **Colección de Postman:** `postman/Ecommerce_API.postman_collection.json` (en Postman: *Import* y elegir el archivo).
 - **Casos de prueba documentados:** [`docs/casos_de_prueba.md`](docs/casos_de_prueba.md)
-- 10 casos (5 de flujo correcto y 5 de error) con 21 tests automáticos. Se ejecutan en orden con el Collection Runner.
+- 24 casos (flujos correctos y de error) con 52 tests automáticos. Se ejecutan en orden con el Collection Runner.
 
 ## 🔒 Buenas prácticas aplicadas
 
